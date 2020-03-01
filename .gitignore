@@ -1,0 +1,13 @@
+# Ignore Files
+.venv/*
+mysite/media/*
+db.sqlite3
+
+migrations
+migrations/*
+
+media
+media/*
+
+__pycache__
+__pycache__/*
