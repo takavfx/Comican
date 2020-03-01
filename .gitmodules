@@ -1,0 +1,3 @@
+[submodule "mysite\\comican\\static\\open-iconic"]
+	path = mysite\\comican\\static\\open-iconic
+	url = https://github.com/iconic/open-iconic.git
