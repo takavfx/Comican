@@ -17,7 +17,7 @@ class Circle(models.Model):
 
 
 class Auther(models.Model):
-    # Rlation
+    # Relation
     circles = models.ManyToManyField(Circle, blank=True)
 
     # Unique
@@ -46,7 +46,7 @@ class TagCategory(models.Model):
 
 
 class Tag(models.Model):
-    # Rlation
+    # Relation
     category = models.ForeignKey(TagCategory, on_delete=models.CASCADE)
 
     # Unique
@@ -72,7 +72,7 @@ class Copyright(models.Model):
 
 
 class Character(models.Model):
-    # Rlation
+    # Relation
     copyright = models.ForeignKey(Copyright, on_delete=models.CASCADE, blank=True, null=True)
 
     # Unique
@@ -87,7 +87,7 @@ class Character(models.Model):
 
 
 class Series(models.Model):
-    # Rlation
+    # Relation
     # Unique
     name = models.CharField(max_length=300)
     detail = models.TextField(blank=True)
@@ -99,7 +99,7 @@ class Series(models.Model):
 
 
 class Book(models.Model):
-    # Rlation
+    # Relation
     authors = models.ManyToManyField(Auther, blank=True, null=True)
     series = models.ForeignKey(Series, blank=True, null=True, on_delete=models.CASCADE)
 
@@ -124,7 +124,7 @@ class Book(models.Model):
 
 
 class Page(models.Model):
-    # Rlation
+    # Relation
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     copyrights = models.ManyToManyField(Copyright, blank=True, null=True)
