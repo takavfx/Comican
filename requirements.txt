@@ -3,3 +3,4 @@ pillow
 # Django Packages
 django-imagekit
 django-cleanup
+django-image-cropping
