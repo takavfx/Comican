@@ -1,4 +1,5 @@
 import os
+import logging
 
 from django.urls import path
 from django.conf import settings
@@ -6,10 +7,10 @@ from django.conf.urls.static import static
 
 from . import views
 
+logger = logging.getLogger(__name__)
+logger.info('TEST')
+
 urlpatterns = [
     path('', views.index, name='index'),
-    path('/book/<int:book_id>', views.book, name='book'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('<int:book_id>/', views.book, name='book'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
