@@ -1,13 +1,9 @@
 # Ignore Files
 .venv/*
-mysite/media/*
-db.sqlite3
-
-migrations
-migrations/*
-
-media
-media/*
-
-__pycache__
+.vscode/*
 __pycache__/*
+
+# Ignore development db and media 
+migrations/*
+db.sqlite3
+mysite/media/*
