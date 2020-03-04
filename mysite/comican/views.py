@@ -47,10 +47,10 @@ def index(request):
     return render(request, 'comican/index.html', context)
 
 def book(request, book_id):
-    return HttpResponse("You're looking at book %s." % book_id)
-    # book = get_object_or_404(Book, pk=book_id)
-    # return render(request, 'comican/book.html', {'book': book})
+    book = get_object_or_404(Book, pk=book_id)
+    return render(request, 'comican/book.html', {'book': book})
 
 def page(request, page_id):
+    logger.debug(page_id)
     page = get_object_or_404(Page, pk=page_id)
     return render(request, 'comican/page.html', {'page': page})

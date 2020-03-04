@@ -18,7 +18,7 @@ class Circle(models.Model):
 
 class Auther(models.Model):
     # Relation
-    circles = models.ManyToManyField(Circle, blank=True)
+    circles = models.ManyToManyField(Circle, blank=True, related_name='authors')
 
     # Unique
     name = models.CharField(max_length=300)
@@ -47,7 +47,7 @@ class TagCategory(models.Model):
 
 class Tag(models.Model):
     # Relation
-    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE, related_name='tags')
 
     # Unique
     name = models.CharField(max_length=200)
@@ -73,7 +73,11 @@ class Copyright(models.Model):
 
 class Character(models.Model):
     # Relation
-    copyright = models.ForeignKey(Copyright, on_delete=models.CASCADE, blank=True, null=True)
+    copyright = models.ForeignKey(Copyright,
+                                on_delete=models.CASCADE,
+                                blank=True,
+                                null=True,
+                                related_name='characters')
 
     # Unique
     name = models.CharField(max_length=300)
@@ -100,8 +104,12 @@ class Series(models.Model):
 
 class Book(models.Model):
     # Relation
-    authors = models.ManyToManyField(Auther, blank=True)
-    series = models.ForeignKey(Series, blank=True, null=True, on_delete=models.CASCADE)
+    authors = models.ManyToManyField(Auther, blank=True, related_name='books')
+    series = models.ForeignKey(Series,
+                                 blank=True,
+                                 null=True,
+                                 on_delete=models.CASCADE,
+                                 related_name='book')
 
     # Unique
     name = models.CharField(max_length=300)
@@ -125,9 +133,9 @@ class Book(models.Model):
 
 class Page(models.Model):
     # Relation
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, blank=True)
-    copyrights = models.ManyToManyField(Copyright, blank=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='pages')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='pages')
+    copyrights = models.ManyToManyField(Copyright, blank=True, related_name='pages')
 
     #Unique
     page_number = models.IntegerField()
@@ -141,6 +149,8 @@ class Page(models.Model):
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
 
+    def __str__(self):
+        return self.book.name + '_P' + str(self.page_number)
 
 
 

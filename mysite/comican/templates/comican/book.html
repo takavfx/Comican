@@ -1,21 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Comican</title>
-</head>
-<body>
-    <div class="container">
+{% extends 'comican/base.html' %}
+{% block 'content' %}
+<div class="row">
+    {% comment %} Book Information START {% endcomment %}
+    <div class="col col-sm-2">
         {% if book %}
-            <p>Hello World.</p>
-        {% else %}
-            <p>No Book info are available.</p>
+            <img src="{{ book.image.url }}" width="230">
         {% endif %}
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
-</html>
+    <div class="col-6 col-sm-4">
+        <div class="row">
+            <div class="col col-sm-4">
+                <h2>{{ book.name }}</h2>
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col col-sm-4">
+                {% if book.authors %}
+                    {% for author in book.authors.all %}
+                        {{ author.name }} 
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col col-sm-4">
+                {{ book.detail }}
+            </div>
+        </div>
+    </div>
+    {% comment %} Book Information END {% endcomment %}
+
+    <div class="w-100 d-none d-md-block"></div>
+    
+    {% comment %} Pages START {% endcomment %}
+    <div class="col">
+        <div class="card-deck p-4">
+            <div class="card bg-secondary text-white" style="width: 200px;">
+                <div class="card bg-secondary text-white" style="width: 200px;">
+                    {% if book.pages.all %}
+                        {% for page in book.pages.all %}
+                            <a href="{{ book.image.url }}"><img class="card-img-top img-fluid" src="{{ page.image.url }}" alt="{{ page.name }}" width="224" height="348"></a>
+                        {% endfor %}
+                    {% else %}
+                        Pages not found.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} Pages END {% endcomment %}
+    
+</div>
+{% endblock 'content' %}

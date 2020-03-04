@@ -5,7 +5,6 @@
         {% for book in latest_book_list %}
             <div class="card bg-secondary text-white" style="width: 200px;">
                 <a href="/comican/{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}" width="224" height="348"></a>
-                {% comment %} <div class="card-body">{{ book.name }}</div> {% endcomment %}
             </div>
         {% endfor %}
     </div>
