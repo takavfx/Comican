@@ -24,7 +24,7 @@ class Auther(models.Model):
     name = models.CharField(max_length=300)
     detail = models.TextField(blank=True)
     web = models.URLField(blank=True)
-    activity_started = models.DateField('Activity Started')
+    activity_started = models.DateField('Activity Started', blank=True)
     on_active = models.BooleanField()
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
@@ -100,7 +100,7 @@ class Series(models.Model):
 
 class Book(models.Model):
     # Relation
-    authors = models.ManyToManyField(Auther, blank=True, null=True)
+    authors = models.ManyToManyField(Auther, blank=True)
     series = models.ForeignKey(Series, blank=True, null=True, on_delete=models.CASCADE)
 
     # Unique
@@ -126,8 +126,8 @@ class Book(models.Model):
 class Page(models.Model):
     # Relation
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
-    copyrights = models.ManyToManyField(Copyright, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+    copyrights = models.ManyToManyField(Copyright, blank=True)
 
     #Unique
     page_number = models.IntegerField()
