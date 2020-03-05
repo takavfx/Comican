@@ -1,0 +1,36 @@
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <div id="drag-drop-area">
+        <div class="drag-drop-inside">
+            <p class="drag-drop-info">ここに画像フォルダをドロップ</p>
+            <p>または</p>
+            <input type="file" value="フォルダを選択" name="image">
+            <p class="drag-drop-buttons"><input id="fileInput" type="file" value="フォルダを選択" name="image"></p>
+            <input type="value" value="送信">
+        </div>
+    </div>
+</form>
+
+<script>
+var fileArea = document.getElementById('drag-drop-area');
+var fileInput = document.getElementById('fileinput');
+
+fileArea.addEventListener('dragover', function(event){
+    event.preventDefault();
+    fileArea.classList.add('dragover');
+});
+
+fileArea.addEventListener('dragleave', function(event){
+    event.preventDefault();
+    fileArea.classList.remove('dragover');
+});
+
+fileArea.addEventListener('drop', function(event){
+    event.preventDefault();
+    fileArea.classList.remove('dragenter');
+    var files = event.dataTransfer.files;
+    fileInput.files = files;
+});
+</script>
