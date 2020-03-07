@@ -4,3 +4,4 @@ pillow
 django-imagekit
 django-cleanup
 django-image-cropping
+djnago-widget-tweaks
