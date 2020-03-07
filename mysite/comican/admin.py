@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Circle, Auther, Book, Page, TagCategory, Tag, Copyright, Series, Character
+from .models import Circle, Auther, Book, Page, TagCategory, Tag, Copyright, Series, Character, Publisher
 
 
 
@@ -10,6 +10,12 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ['favorite']
 
 
+class PageAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['book', 'page_number', 'image']}),
+        ('Meta Data', {'fields': ['copyrights', 'tags', 'bookmark']})
+    ]
+
 
 
 def register_models():
@@ -18,12 +24,13 @@ def register_models():
         [Circle],
         [Auther],
         [Book, BookAdmin],
-        [Page],
+        [Page, PageAdmin],
         [TagCategory],
         [Tag],
         [Copyright],
         [Series],
-        [Character]
+        [Character],
+        [Publisher]
     ]
 
     for reg_model_set in reg_model_sets:

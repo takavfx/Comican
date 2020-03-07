@@ -34,6 +34,21 @@ class Auther(models.Model):
 
 
 
+class Publisher(models.Model):
+    # Unique
+    name = models.CharField(max_length=300)
+    detail = models.TextField(blank=True)
+    web = models.URLField(blank=True)
+    activity_started = models.DateField('Activity Started', blank=True)
+    on_active = models.BooleanField()
+    created_at = models.DateTimeField('Date Created', auto_now_add=True)
+    updated_at = models.DateTimeField('Date Updated', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+
 class TagCategory(models.Model):
     # Unique
     name = models.CharField(max_length=200)
