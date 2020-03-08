@@ -26,9 +26,9 @@ class Upload(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         files = request.FILES.getlist('file_field')
-        print(form_class)
-        print(form)
-        print(files)
+        logger.debug(form_class)
+        logger.debug(form)
+        logger.debug(files)
         if form.is_valid():
             for f in files:
                 print(f)
@@ -48,22 +48,34 @@ class Upload(FormView):
 
 def index(request):
     latest_book_list = Book.objects.order_by('-created_at')[:20]
-    authors = Auther.objects.all()
     upload_form = AddBookForm(request.POST)
-    context = {'latest_book_list': latest_book_list,
-                'authors': authors,
-                'upload_form': upload_form}
+    context = {
+        'latest_book_list': latest_book_list,
+        'upload_form': upload_form
+    }
     return render(request, 'comican/index.html', context)
 
 
 def book(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
-    return render(request, 'comican/book.html', {'book': book})
+    upload_form = AddBookForm(request.POST)
+    context = {
+        'book': book,
+        'upload_form': upload_form
+    }
+    return render(request, 'comican/book.html', context)
 
 
-def page(request, page_id):
+def page(request, book_id, page_id):
+    book = get_object_or_404(Book, pk=book_id)
     page = get_object_or_404(Page, pk=page_id)
-    return render(request, 'comican/page.html', {'page': page})
+    upload_form = AddBookForm(request.POST)
+    context: {
+        'book': book,
+        'page': page,
+        'upload_form': upload_form
+    }
+    return render(request, 'comican/page.html', context)
 
 
 def upload_sample(request):
