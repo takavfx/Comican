@@ -43,7 +43,7 @@
             </div>
             {% csrf_token %}
             <form action="/comican/upload/" method="post" enctype="multipart/form-data">
-                <div class="modal-body bg-secondary">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="book_name">Book Name</label>
                         {{ upload_form.name }}
