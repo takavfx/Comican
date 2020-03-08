@@ -66,14 +66,16 @@ def book(request, book_id):
     return render(request, 'comican/book.html', context)
 
 
-def page(request, book_id, page_id):
+def page(request, book_id, page_number):
     book = get_object_or_404(Book, pk=book_id)
-    page = get_object_or_404(Page, pk=page_id)
+    book_page = Book.objects.get(pk=book_id).pages.all()[page_number-1]
+    print(book_page)
+    page = get_object_or_404(Page, pk=book_page.id)
     upload_form = AddBookForm(request.POST)
-    context: {
+    context = {
         'book': book,
         'page': page,
-        'upload_form': upload_form
+        'upload_form': upload_form,
     }
     return render(request, 'comican/page.html', context)
 
