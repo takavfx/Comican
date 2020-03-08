@@ -121,10 +121,10 @@ class Book(models.Model):
     # Relation
     authors = models.ManyToManyField(Auther, blank=True, related_name='books')
     series = models.ForeignKey(Series,
-                                 blank=True,
-                                 null=True,
-                                 on_delete=models.CASCADE,
-                                 related_name='book')
+                                blank=True,
+                                null=True,
+                                on_delete=models.CASCADE,
+                                related_name='book')
 
     # Unique
     name = models.CharField(max_length=300)

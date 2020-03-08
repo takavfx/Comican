@@ -5,22 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'scripts/lightbox2/dist/css/lightbox.css' %}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="{% static 'scripts/lightbox2/dist/js/lightbox.js' %}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'comican/style.css' %}">
     <title>Comican</title>
 </head>
 <body class="bg-dark text-white">
     <nav class="navbar navbar-dark bg-secondary">
-        <a class="navbar-brand" href="#">COMICAN</a>
+        <a class="navbar-brand" href="/comican/">COMICAN</a>
         <form class="form-inline">
-            <div class="input-group round-pill">
-                <input type="text" class="form-control" placeholder="..." aria-label="Search Box" aria-describedby="button-addon2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search Box" aria-describedby="button-addon2" size="70">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-dark bg-white text-dark" type="button" id="button-addon2">Search</button>
+                    <button class="btn btn-outline-dark bg-dark text-white" type="button" id="button-addon2">Search</button>
                 </div>
             </div>
         </form>
         <form class="form-inline">
-            <button class="btn" img="" type="button" id="button-addon2" data-toggle="modal" data-target="#exampleModalCenter">+</button>
+            <button class="btn btn-dark text-white" img="" type="button" id="button-addon2" data-toggle="modal" data-target="#exampleModalCenter">Add Book</button>
         </form>
     </nav>
     <div class="container col-12 p-5">
@@ -36,17 +41,48 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                {% include "comican/uploader.html" %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Upload</button>
-            </div>
+            <form action="/comican/upload/" method="post" enctype="multipart/form-data">
+                <div class="modal-body bg-secondary">
+                    <div class="form-row">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label for="book_name">Book Name</label>
+                                <input type="text" id="book_name" class="form-control" placeholder="Book Name" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="series_number">Series Number</label>
+                                <input type="text" id="series_number" class="form-control" placeholder="Series Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="authors">Authors</label>
+                        <select multiple class="form-control" id="authors">
+                        {% for author in authors %}
+                            <option>{{ author }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pages">Page Images</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="pages" placeholder="Choose files..." multiple required>
+                            <label class="custom-file-label" for="pages">Choose file</label>
+                        </div>
+                    </div>
+                    <div class="form-class">
+                        <label for="detail">Detail</label>
+                        <textarea class="form-control" id="detail" placeholder="Detail of the book"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-to-cancel-upload" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info btn-to-upload-images">Upload</button>
+                </div>
+            </form>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -13,4 +13,6 @@ logger.info('TEST')
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:book_id>/', views.book, name='book'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('<int:page_id>/', views.page, name='page'),
+    path('upload/', views.upload, name='upload'),
+]#  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,29 +1,25 @@
 {% extends 'comican/base.html' %}
 {% block 'content' %}
 <div class="row">
-    {% comment %} Book Information START {% endcomment %}
-    <div class="col col-sm-2" style="width: 200px;">
-        {% if book %}
-            <img src="{{ book.image.url }}" width="230">
-        {% endif %}
-    </div>
-    <div class="col-6 col-sm-4">
-        <div class="row">
-            <div class="col p-3">
-                <h2>{{ book.name }}</h2>
+    <div class="card bg-secondary">
+        <div class="row no-gutters">
+            <div class="col-md-3" style="max-width: 300px;">
+                <img src="{{ book.image.url }}" width="300">
             </div>
-            <div class="w-100 d-none d-md-block"></div>
             <div class="col">
-                {% if book.authors %}
-                    {% for author in book.authors.all %}
-                        {{ author.name }} 
-                    {% endfor %}
-                {% else %}
-                {% endif %}
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col">
-                {{ book.detail }}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <p class="card-text">
+                        {% if book.authors %}
+                            {% for author in book.authors.all %}
+                                {{ author.name }} 
+                            {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </p>
+                    <p class="card-text">{{ book.detail }}</p>
+                    <p class="card-text"><small>{{ book.updated_at }}</small></p>
+                </div>
             </div>
         </div>
     </div>
@@ -31,18 +27,16 @@
 
     <div class="w-100 d-none d-md-block"></div>
     
-    <div class="col">
-    {% comment %} Pages START {% endcomment %}
-    <div class="Grid p-3">
-        {% if book.pages.all %}
-            {% for page in book.pages.all %}
-                <a href="{{ page.image.url }}"><img class="card-img-top img-fluid" src="{{ page.image.url }}" alt="{{ page.name }}" height="348"></a>
-            {% endfor %}
-        {% else %}
-            Pages not found.
-        {% endif %}
-    </div>
-    {% comment %} Pages END {% endcomment %}
+    <div class="row">
+        <div class="Grid p-4">
+            {% if book.pages.all %}
+                {% for page in book.pages.all %}
+                <a href="{{ page.image.url }}"><img src="{{ page.thumbnail.url }}" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" alt="{{ page }}"></a>
+                {% endfor %}
+            {% else %}
+                Pages not found.
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock 'content' %}

@@ -4,10 +4,15 @@
     <div class="card-deck">
         {% for book in latest_book_list %}
             <div class="card bg-secondary text-white" style="width: 200px;">
-                <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}" width="224" height="348"></a>
+                <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.thumbnail.url }}" alt="{{ book.name }}"></a>
             </div>
         {% endfor %}
     </div>
+    {% comment %} <div class="Grid">
+        {% for book in latest_book_list %}
+            <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}" width="224" height="348"></a>
+        {% endfor %}
+    </div> {% endcomment %}
 {% else %}
     <p>No Books are available.</p>
 {% endif %}
