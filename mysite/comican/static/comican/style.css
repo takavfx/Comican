@@ -5,7 +5,7 @@
 }
 
 #drag-drop-area {
- border-style: dashed;
- border-color: rgb(184, 184, 184);
- padding: 1em;
+    border-style: dashed;
+    border-color: rgb(184, 184, 184);
+    padding: 1em;
 }
