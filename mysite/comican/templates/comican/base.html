@@ -44,12 +44,14 @@
             {% csrf_token %}
             <form action="/comican/upload/" method="post" enctype="multipart/form-data">
                 <div class="modal-body bg-secondary">
+                    <div class="form-group">
+                        <label for="book_name">Book Name</label>
+                        {{ upload_form.name }}
+                    </div>
                     <div class="form-row">
                         <div class="col-9">
-                            <div class="form-group">
-                                <label for="book_name">Book Name</label>
-                                {{ upload_form.name }}
-                            </div>
+                            <label for="series">Series</label>
+                            {{ upload_form.series }}
                         </div>
                         <div class="col">
                             <div class="form-group">
