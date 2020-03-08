@@ -31,7 +31,7 @@
         <div class="Grid p-4">
             {% if book.pages.all %}
                 {% for page in book.pages.all %}
-                <a href="{{ page.image.url }}"><img src="{{ page.thumbnail.url }}" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" alt="{{ page }}"></a>
+                <a href="{{ page.id }}"><img src="{{ page.thumbnail.url }}" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" alt="{{ page }}"></a>
                 {% endfor %}
             {% else %}
                 Pages not found.
