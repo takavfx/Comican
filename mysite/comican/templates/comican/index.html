@@ -17,4 +17,40 @@
     <p>No Books are available.</p>
 {% endif %}
 </div>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" aria-label="Pagination">
+    <!-- コンテンツの表示（通常のモデルオブジェクトとして扱える） -->
+    {% comment %} {% for book_list in latest_book_list %}
+        {{ book_list.title }}<br>
+    {% endfor %} {% endcomment %}
+
+    <ul class="pagination bg-dark text-white">
+        <!-- 前のページへのリンク -->
+        {% if latest_book_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?p={{ latest_book_list.previous_page_number }}">Previous</a>
+            </li>
+        {% endif %}
+        {% if latest_book_list.has_previous %}
+            {% if latest_book_list.previous_page_number != 1 %}
+            <li><a class="page-item" href="?p=1">1</a></li>
+            <li><span class="page-link">&hellip;</span></li>
+            {% endif %}
+        {% endif %}
+        <li><a class="page-link is-current" href="?p={{ latest_book_list.number }}" >{{ latest_book_list.number }}</a></li>
+        {% if latest_book_list.has_next %}
+            <li><a class="page-link" href="?p={{ latest_book_list.next_page_number }}">{{ latest_book_list.next_page_number }}</a></li>
+            {% if latest_book_list.next_page_number != latest_book_list.paginator.num_pages %}
+                {% comment %} <li><span class="page-ellipsis">&hellip;</span></li> {% endcomment %}
+                <li><a class="page-link" href="?p={{ latest_book_list.paginator.num_pages }}">{{ latest_book_list.paginator.num_pages }}</a></li>
+            {% endif %}
+        {% endif %}
+
+        <!-- 次のページへのリンク -->
+        {% if latest_book_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?p={{ latest_book_list.next_page_number }}">Next</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock 'content' %}

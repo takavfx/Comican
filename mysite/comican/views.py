@@ -9,6 +9,7 @@ from django.conf import settings
 from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.template import RequestContext
+from django.core.paginator import Paginator
 
 from .forms import FileFieldForm, AddBookForm
 from .models import Circle, Auther, Book, Page, TagCategory, Tag, Copyright, Series, Character
@@ -47,10 +48,13 @@ class Upload(FormView):
 
 
 def index(request):
-    latest_book_list = Book.objects.order_by('-created_at')[:20]
+    latest_book_list = Book.objects.order_by('-created_at')
+    paginator = Paginator(latest_book_list, 3)
+    p = request.GET.get('p')
+    books = paginator.get_page(p)
     upload_form = AddBookForm(request.POST)
     context = {
-        'latest_book_list': latest_book_list,
+        'latest_book_list': books,
         'upload_form': upload_form
     }
     return render(request, 'comican/index.html', context)
