@@ -146,7 +146,7 @@ class Book(models.Model):
                                 format='JPEG',
                                 options={'quality': 90})
     detail = models.TextField(blank=True)
-    favorite = models.BooleanField()
+    favorite = models.BooleanField(default=False)
     series_number = models.IntegerField(blank=True)
     pub_date = models.DateField('Date Book Published', blank=True, null=True)
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
@@ -171,7 +171,7 @@ class Page(models.Model):
                                 processors=[ResizeToFill(512, 724)],
                                 format='JPEG',
                                 options={'quality': 90})
-    bookmark = models.BooleanField()
+    bookmark = models.BooleanField(default=False)
     last_view = models.DateTimeField('Date Book Published', auto_now_add=True)
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
