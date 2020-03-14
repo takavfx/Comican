@@ -53,9 +53,12 @@ def index(request):
         print(dir(request))
         print(request.POST.keys())
         print(request.FILES.getlist('image', False))
-        print(request.POST['series'])
+        print(request.POST['auhthors'])
 
-        series = Series.objects.get(pk=request.POST['series'])
+        if request.POST['series']:
+            series = Series.objects.get(pk=request.POST['series'])
+        else:
+            series=None
 
         book = Book(
             name=request.POST['name'],
@@ -66,6 +69,7 @@ def index(request):
             favorite=False,
         )
         book.save()
+
     latest_book_list = Book.objects.order_by('-created_at')
     paginator = Paginator(latest_book_list, 27)
     p = request.GET.get('p')
