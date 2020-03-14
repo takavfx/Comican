@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Page, Book, Auther, Series
+from .models import Page, Book, Author, Series
 
 class FileFieldForm(forms.Form):
     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
@@ -28,7 +28,7 @@ class AddBookForm(forms.ModelForm):
     #     widget=forms.ClearableFileInput(attrs={'multiple': True}),
     # )
     # authors = forms.ModelMultipleChoiceField(
-    #         queryset=Auther.objects.all(),
+    #         queryset=Author.objects.all(),
     #         label="Authors",
     #         widget=forms.SelectMultiple(
     #             attrs={
@@ -68,7 +68,7 @@ class AddPageForm(forms.ModelForm):
 
 class AddAuthorForm(forms.ModelForm):
     class Meta:
-        model = Auther
+        model = Author
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):

@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator
 
 from .forms import FileFieldForm, AddBookForm
-from .models import Circle, Auther, Book, Page, TagCategory, Tag, Copyright, Series, Character
+from .models import Circle, Author, Book, Page, TagCategory, Tag, Copyright, Series, Character
 
 
 logger = logging.getLogger(__name__)

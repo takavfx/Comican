@@ -28,7 +28,7 @@ class Circle(models.Model):
         return self.name
 
 
-class Auther(models.Model):
+class Author(models.Model):
     # Relation
     circles = models.ManyToManyField(Circle, blank=True, related_name='authors')
 
@@ -36,7 +36,7 @@ class Auther(models.Model):
     name = models.CharField(max_length=300)
     detail = models.TextField(blank=True)
     web = models.URLField(blank=True)
-    activity_started = models.DateField('Activity Started', blank=True)
+    activity_started = models.DateField('Activity Started', blank=True, default=datetime.date.today())
     on_active = models.BooleanField()
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
@@ -131,7 +131,7 @@ class Series(models.Model):
 
 class Book(models.Model):
     # Relation
-    authors = models.ManyToManyField(Auther, blank=True, related_name='books')
+    authors = models.ManyToManyField(Author, blank=True, related_name='books')
     series = models.ForeignKey(Series,
                                 blank=True,
                                 null=True,
