@@ -1,29 +1,21 @@
 {% extends 'comican/base.html' %}
 {% block 'content' %}
 {% if latest_book_list %}
-    <div class="card-deck">
+    <div class="Grid">
         {% for book in latest_book_list %}
-            <div class="card bg-secondary text-white" style="width: 200px;">
-                <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.thumbnail.url }}" alt="{{ book.name }}"></a>
-            </div>
+            <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.thumbnail.url }}" alt="{{ book.name }}" width="224" height="348"></a>
         {% endfor %}
     </div>
-    {% comment %} <div class="Grid">
-        {% for book in latest_book_list %}
-            <a href="{{ book.id }}"><img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}" width="224" height="348"></a>
-        {% endfor %}
-    </div> {% endcomment %}
 {% else %}
     <p>No Books are available.</p>
 {% endif %}
 </div>
-<nav class="navbar fixed-bottom navbar-dark bg-dark" aria-label="Pagination">
+<nav class="Page fixed-bottom navbar-dark bg-dark" aria-label="Pagination">
     <!-- コンテンツの表示（通常のモデルオブジェクトとして扱える） -->
     {% comment %} {% for book_list in latest_book_list %}
         {{ book_list.title }}<br>
     {% endfor %} {% endcomment %}
-
-    <ul class="pagination bg-dark text-white">
+    <ul class="pagination justify-content-center pg-blue">
         <!-- 前のページへのリンク -->
         {% if latest_book_list.has_previous %}
             <li class="page-item">
@@ -40,7 +32,7 @@
         {% if latest_book_list.has_next %}
             <li><a class="page-link" href="?p={{ latest_book_list.next_page_number }}">{{ latest_book_list.next_page_number }}</a></li>
             {% if latest_book_list.next_page_number != latest_book_list.paginator.num_pages %}
-                {% comment %} <li><span class="page-ellipsis">&hellip;</span></li> {% endcomment %}
+                <li><span class="page-ellipsis">&hellip;</span></li>
                 <li><a class="page-link" href="?p={{ latest_book_list.paginator.num_pages }}">{{ latest_book_list.paginator.num_pages }}</a></li>
             {% endif %}
         {% endif %}
@@ -48,7 +40,7 @@
         <!-- 次のページへのリンク -->
         {% if latest_book_list.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?p={{ latest_book_list.next_page_number }}">Next</a>
+                <a class="page-link bg-light" href="?p={{ latest_book_list.next_page_number }}">Next</a>
             </li>
         {% endif %}
     </ul>

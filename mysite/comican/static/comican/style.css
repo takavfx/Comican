@@ -1,11 +1,6 @@
-.Grid {
+/* .Grid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 100px 50px;
     grid-gap: 10px;
-}
-
-#drag-drop-area {
-    border-style: dashed;
-    border-color: rgb(184, 184, 184);
-    padding: 1em;
-}
+} */
