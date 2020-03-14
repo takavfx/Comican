@@ -168,7 +168,7 @@ class Page(models.Model):
     page_number = models.IntegerField()
     image = models.ImageField(upload_to=uuid_name)
     thumbnail = ImageSpecField(source='image',
-                                processors=[ResizeToFill(336, 522)],
+                                processors=[ResizeToFill(512, 724)],
                                 format='JPEG',
                                 options={'quality': 90})
     bookmark = models.BooleanField()
