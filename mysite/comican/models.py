@@ -1,7 +1,19 @@
+import os
+import uuid
+import datetime
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+
+def uuid_name(instance, filename):
+    now = datetime.datetime.now()
+    return 'media/uploads/{year}/{month}/{day}/{filename}{ext}'.format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=str(uuid.uuid4()),
+        ext=os.path.splitext(filename)[1])
 
 
 class Circle(models.Model):
@@ -97,7 +109,7 @@ class Character(models.Model):
     # Unique
     name = models.CharField(max_length=300)
     detail = models.TextField(blank=True)
-    image = models.ImageField(upload_to='media/uploads/%Y/%m/%d/thm/', blank=True)
+    image = models.ImageField(upload_to=uuid_name, blank=True)
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
 
@@ -128,7 +140,7 @@ class Book(models.Model):
 
     # Unique
     name = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='media/uploads/%Y/%m/%d/thm/')
+    image = models.ImageField(upload_to=uuid_name)
     thumbnail = ImageSpecField(source='image',
                                 processors=[ResizeToFill(336, 522)],
                                 format='JPEG',
@@ -154,7 +166,7 @@ class Page(models.Model):
 
     #Unique
     page_number = models.IntegerField()
-    image = models.ImageField(upload_to='media/uploads/%Y/%m/%d/thm/')
+    image = models.ImageField(upload_to=uuid_name)
     thumbnail = ImageSpecField(source='image',
                                 processors=[ResizeToFill(336, 522)],
                                 format='JPEG',
