@@ -14,5 +14,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('<int:book_id>/', views.book, name='book'),
     path('<int:book_id>/<int:page_number>/', views.page, name='page'),
-    path('upload/', views.Upload, name='upload'),
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('upload/', views.UploadView.as_view(), name='upload'),
+] #  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

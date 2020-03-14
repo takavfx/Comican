@@ -18,7 +18,7 @@ from .models import Circle, Auther, Book, Page, TagCategory, Tag, Copyright, Ser
 logger = logging.getLogger(__name__)
 
 
-class Upload(FormView):
+class UploadView(FormView):
     form_class = AddBookForm
     template_name = 'comican/uploader.html'  # Replace with your template.
     success_url = '#'  # Replace with your URL or reverse().
