@@ -49,7 +49,7 @@ class UploadView(FormView):
 
 def index(request):
     latest_book_list = Book.objects.order_by('-created_at')
-    paginator = Paginator(latest_book_list, 3)
+    paginator = Paginator(latest_book_list, 27)
     p = request.GET.get('p')
     books = paginator.get_page(p)
     upload_form = AddBookForm(request.POST)
@@ -73,7 +73,6 @@ def book(request, book_id):
 def page(request, book_id, page_number):
     book = get_object_or_404(Book, pk=book_id)
     book_page = Book.objects.get(pk=book_id).pages.order_by('-page_number')[page_number-1]
-    print(book_page)
     page = get_object_or_404(Page, pk=book_page.id)
     upload_form = AddBookForm(request.POST)
     context = {
