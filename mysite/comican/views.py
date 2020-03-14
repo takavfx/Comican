@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class UploadView(FormView):
     form_class = AddBookForm
-    template_name = 'comican/uploader.html'  # Replace with your template.
+    # template_name = 'comican/uploader.html'  # Replace with your template.
     success_url = '#'  # Replace with your URL or reverse().
 
     def post(self, request, *args, **kwargs):
@@ -48,6 +48,24 @@ class UploadView(FormView):
 
 
 def index(request):
+    if request.method == 'POST':
+        print('Uploading')
+        print(dir(request))
+        print(request.POST.keys())
+        print(request.FILES.getlist('image', False))
+        print(request.POST['series'])
+
+        series = Series.objects.get(pk=request.POST['series'])
+
+        book = Book(
+            name=request.POST['name'],
+            image=request.FILES.getlist('image', False)[0],
+            series=series,
+            series_number=request.POST.get('series_number', 1),
+            detail=request.POST['detail'],
+            favorite=False,
+        )
+        book.save()
     latest_book_list = Book.objects.order_by('-created_at')
     paginator = Paginator(latest_book_list, 27)
     p = request.GET.get('p')
@@ -83,7 +101,7 @@ def page(request, book_id, page_number):
     return render(request, 'comican/page.html', context)
 
 
-def upload_sample(request):
+def add_book(request):
     if request.method == 'POST':
         print(request)
         image_form = AddBookForm(request)
