@@ -8,4 +8,4 @@ __pycache__/*
 migrations
 migrations/*
 db.sqlite3
-mysite/media/*
+src/media/*
