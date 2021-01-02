@@ -1,6 +1,6 @@
-[submodule "mysite\\comican\\static\\open-iconic"]
-	path = mysite\\comican\\static\\open-iconic
+[submodule "src\\comican\\static\\open-iconic"]
+	path = src\\comican\\static\\open-iconic
 	url = https://github.com/iconic/open-iconic.git
-[submodule "mysite\\comican\\static\\scripts\\lightbox2"]
-	path = mysite\\comican\\static\\scripts\\lightbox2
+[submodule "src\\comican\\static\\scripts\\lightbox2"]
+	path = src\\comican\\static\\scripts\\lightbox2
 	url = https://github.com/lokesh/lightbox2.git
