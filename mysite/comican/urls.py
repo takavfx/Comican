@@ -12,6 +12,9 @@ logger.info('TEST')
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:book_id>/', views.book, name='book'),
-    path('<int:book_id>/<int:page_number>/', views.page, name='page'),
+    path('books/<int:book_id>', views.book, name='book'),
+    path('books/<int:book_id>/<int:page_number>', views.page, name='page'),
+    path('circles/', views.circles, name='circles'),
+    path('tags/', views.tags, name='tags'),
+    path('authors/', views.authors, name='authors'),
 ]

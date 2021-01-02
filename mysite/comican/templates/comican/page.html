@@ -1,6 +1,25 @@
 {% extends 'comican/base.html' %}
-{% block content %}
-<div class="">
+{% block 'content' %}
+
+<div class="page">
     <img src="{{ page.image.url }}">
+    <div class="page_info">
+        <div class="page_info_title">
+            <h4>Page Infomation</h4>
+        </div>
+        <div class="tag d-inline p-2 bg-info text-white">
+            {% for tag in page.tags.all %}
+                {{ tag }}
+            {% endfor %}
+        </div>
+        <div class="copyright d-inline p-2 bg-secondary text-white">
+            {% for copyright in page.copyrights.all %}
+                {{ copyright }}
+            {% endfor %}
+        </div>
+    </div>
 </div>
-{% endblock content %}
+
+
+
+{% endblock 'content' %}

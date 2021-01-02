@@ -1,6 +1,6 @@
 {% extends 'comican/base.html' %}
 {% block 'content' %}
-<div class="row p-3">
+<div class="book_content">
     <div class="card bg-secondary">
         <div class="row no-gutters">
             <div class="col-md-3" style="max-width: 300px;">
@@ -11,9 +11,16 @@
                     <h5 class="card-title">{{ book.name }}</h5>
                     <p class="card-text">
                         {% if book.authors %}
-                            {% for author in book.authors.all %}
-                                {{ author.name }} 
-                            {% endfor %}
+                            {% if book.authors.all %}
+                                {% for author in book.authors.all %}
+                                    {{ author.name }}
+                                    {% if author.circles.all %}(
+                                        {% for circle in author.circles.all %}
+                                            {{ circle }},
+                                        {% endfor %})
+                                    {% endif %}
+                                {% endfor %},
+                            {% endif %}
                         {% else %}
                         {% endif %}
                     </p>
@@ -27,16 +34,16 @@
 
     <div class="w-100 d-none d-md-block"></div>
     
-    <div class="row">
-        <div class="Grid p-4">
-            {% if book.pages.all %}
-                {% for page in book.pages.all %}
-                <a href="{{ page.page_number }}"><img src="{{ page.thumbnail.url }}" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" alt="{{ page }}"></a>
-                {% endfor %}
-            {% else %}
-                Pages not found.
-            {% endif %}
-        </div>
+    <div class="book_pages_grid">
+        {% if book.pages.all %}
+            {% for page in book.pages.all %}
+            <div class="book_page_item shadow-sm rounded">
+                <a href="{{ book.id }}/{{ page.page_number }}"><img src="{{ page.thumbnail.url }}" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100 img-thumbnail" alt="{{ page }}"></a>
+            </div>
+            {% endfor %}
+        {% else %}
+            Pages not found.
+        {% endif %}
     </div>
 </div>
 {% endblock 'content' %}

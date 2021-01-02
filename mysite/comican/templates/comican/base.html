@@ -4,92 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'comican/style.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <style>
-        .Grid {
-            display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            grid-gap: 20px;
-        }
-    </style>
     <title>Comican</title>
 </head>
 <body class="bg-dark text-white">
-    <nav class="navbar navbar-dark bg-secondary">
-        <a class="navbar-brand" href="/books/">
-            <img src="{% static 'comican/comican_logo.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-            COMICAN
-        </a>
-        <form class="form-inline">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search Box" aria-describedby="button-addon2" size="70">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-dark bg-dark text-white" type="button" id="button-addon2">Search</button>
-                </div>
-            </div>
-        </form>
-        <form class="form-inline">
-            <button class="btn btn-dark text-white" img="" type="button" id="button-addon2" data-toggle="modal" data-target="#exampleModalCenter">Add Book</button>
-        </form>
-    </nav>
-    <div class="container col p-4">
-        {% block 'content' %}
-        {% endblock 'content' %}
-    </div>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content bg-dark">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Upload New Book</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="book_name">Book Name</label>
-                        {{ upload_form.name }}
+    {% block extrahead %}
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+    {% endblock %}
+    <div main="main-content">
+        <nav class="navbar navbar-dark bg-secondary">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'comican/comican_logo.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                COMICAN
+            </a>
+            <form class="form-inline" method="GET">
+                <div class="input-group">
+                    <input type="text" name="query" class="form-control" placeholder="Search" aria-label="Search Box" aria-describedby="button-addon2" size="70">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-dark bg-dark text-white" type="submit" id="button-addon2">Search</button>
                     </div>
-                    <div class="form-row">
-                        <div class="col-9">
-                            <label for="series">Series</label>
-                            {{ upload_form.series }}
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="series_number">Series Number</label>
-                                {{ upload_form.series_number }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="authors">Authors</label>
-                        {{ upload_form.authors }}
-                    </div>
-                    <div class="form-group">
-                        <label for="pages">Page Images</label>
-                        <div class="custom-file">
-                            {{ upload_form.image }}
-                            {% comment %} <input type="file" class="custom-file-input" id="pages" placeholder="Choose files..." multiple required>
-                            <label class="custom-file-label" for="pages">Choose file</label> {% endcomment %}
-                        </div>
-                    </div>
-                    <div class="form-class">
-                        <label for="detail">Detail</label>
-                        {{ upload_form.detail }}
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-to-cancel-upload" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-info btn-to-upload-images">Upload</button>
                 </div>
             </form>
+            <form class="form-inline">
+                <button class="btn btn-dark text-white" img="" type="button" id="button-addon2" data-toggle="modal" data-target="#exampleModalCenter">Add Book</button>
+            </form>
+        </nav>
+        <div class="container col p-4">
+            {% block 'content' %}
+            {% endblock 'content' %}
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Upload New Book</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="book_name">Book Name</label>
+                            {{ add_book_form.name }}
+                        </div>
+                        <div class="form-row">
+                            <div class="col-9">
+                                <label for="series">Series</label>
+                                {{ add_book_form.series }}
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="series_number">Series Number</label>
+                                    {{ add_book_form.series_number }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="authors">Authors</label>
+                            {{ add_book_form.authors }}
+                        </div>
+                        <div class="form-group">
+                            <label for="book_file">Book File</label>
+                            <div class="custom-file">
+                                {{ add_book_form.book_file }}
+                                {% comment %} <input type="file" class="custom-file-input" id="image" placeholder="Choose files..." required> {% endcomment %}
+                                <label class="custom-file-label" for="book_file">Choose file</label>
+                            </div>
+                        </div>
+                        <div class="form-class">
+                            <label for="detail">Detail</label>
+                            {{ add_book_form.detail }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-to-cancel-upload" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-info btn-to-upload-images">Upload</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

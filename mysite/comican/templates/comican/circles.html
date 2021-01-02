@@ -1,0 +1,10 @@
+{% extends 'comican/base.html' %}
+{% block 'content' %}
+
+<div class='grid d-inline p-2 bg-secondary text-white'>
+    {% for circle in circles.all %}
+        {{ circle.name }}
+    {% endfor %}
+</div>
+
+{% endblock 'content' %}

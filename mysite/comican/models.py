@@ -2,6 +2,7 @@ import os
 import uuid
 import datetime
 from django.db import models
+from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -36,7 +37,7 @@ class Author(models.Model):
     name = models.CharField(max_length=300)
     detail = models.TextField(blank=True)
     web = models.URLField(blank=True)
-    activity_started = models.DateField('Activity Started', blank=True, default=datetime.date.today())
+    activity_started = models.DateField('Activity Started', blank=True, default=timezone.now)
     on_active = models.BooleanField()
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
@@ -74,7 +75,9 @@ class TagCategory(models.Model):
 
 class Tag(models.Model):
     # Relation
-    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE, related_name='tags')
+    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE,
+                                blank=True,
+                                related_name='tags')
 
     # Unique
     name = models.CharField(max_length=200)
@@ -147,7 +150,7 @@ class Book(models.Model):
                                 options={'quality': 90})
     detail = models.TextField(blank=True)
     favorite = models.BooleanField(default=False)
-    series_number = models.IntegerField(blank=True)
+    series_number = models.IntegerField(default=1)
     pub_date = models.DateField('Date Book Published', blank=True, null=True)
     created_at = models.DateTimeField('Date Created', auto_now_add=True)
     updated_at = models.DateTimeField('Date Updated', auto_now=True)
@@ -163,6 +166,7 @@ class Page(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='pages')
     tags = models.ManyToManyField(Tag, blank=True, related_name='pages')
     copyrights = models.ManyToManyField(Copyright, blank=True, related_name='pages')
+    characters = models.ManyToManyField(Character, blank=True, related_name='pages')
 
     #Unique
     page_number = models.IntegerField()

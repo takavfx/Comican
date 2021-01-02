@@ -1,58 +1,33 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+from django.db.models import fields
 
 from .models import Page, Book, Author, Series
 
-class FileFieldForm(forms.Form):
-    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
 
 class AddBookForm(forms.ModelForm):
-    template_name = 'comican/uploader.html'
-    # name = forms.CharField(label='Name',
-    #                     max_length=300,
-    #                     required=True,
-    #                     widget=forms.TextInput(attrs={'class': 'form-control',
-    #                                                 'placeholder': 'Book Name'}))
-    # series = forms.ModelChoiceField(
-    #         queryset=Series.objects.all(),
-    #         label="Series",
-    #         widget=forms.Select(
-    #             attrs={'class': 'form-control'}
-    #         ),
-    #         required=False
-    #     )
-    # series_number = forms.IntegerField(
-    #         widget=forms.NumberInput(attrs={'class': 'form-control'}),
-    #     )
-    # image = forms.ImageField(
-    #     widget=forms.ClearableFileInput(attrs={'multiple': True}),
-    # )
-    # authors = forms.ModelMultipleChoiceField(
-    #         queryset=Author.objects.all(),
-    #         label="Authors",
-    #         widget=forms.SelectMultiple(
-    #             attrs={
-    #                 'multiple': True,
-    #                 'class': 'form-control'}
-    #                 ),
-    #         required=False
-    #     )
-    # detail = forms.CharField(
-    #     required=False,
-    #     widget=forms.Textarea(
-    #         attrs={'class': 'form-control',
-    #             'placeholder': "Detail of the book"}))
-
-
+    book_file = forms.FileField(
+        widget=forms.FileInput(
+            attrs={
+                'class': 'custom-file-input',
+                'placeholder': 'Choose files...',
+                'id': 'book_file'
+            }
+        )
+    )
     class Meta:
         model = Book
-        fields = '__all__' 
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs["class"] = "form-control"
-
+            if field == forms.fields.ImageField:
+                field.widget.attrs["class"] = "custom-file-input"
+            else:
+                field.widget.attrs["class"] = "form-control"
 
 
 class AddPageForm(forms.ModelForm):
@@ -63,7 +38,11 @@ class AddPageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs["class"] = "form-control"
+            if field == forms.fields.ImageField:
+                field.widget.attrs["class"] = "custom-file-input"
+                field.widget.attrs["placeholder"] = "Choose files..."
+            else:
+                field.widget.attrs["class"] = "form-control"
 
 
 class AddAuthorForm(forms.ModelForm):
@@ -75,3 +54,20 @@ class AddAuthorForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control"
+
+
+class UserCreationForm(UserCreationForm):
+    """
+    docstring
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs["class"] = "form-control"
+        self.fields["password1"].widget.attrs["class"] = "form-control"
+        self.fields["password2"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = User
+        fields = ("username", "password1", "password2",)
+        
