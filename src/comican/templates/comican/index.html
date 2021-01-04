@@ -1,16 +1,39 @@
 {% extends 'comican/base.html' %}
+
+{% block 'javascript' %}
+    <script>
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onBeforePageLoad: function () {
+                $('.loading').show();
+            },
+            onAfterPageLoad: function ($items) {
+                $('.loading').hide();
+            }
+        });
+    </script>
+{% endblock 'javascript' %}
+
 {% block 'content' %}
-{% if latest_book_list %}
-    <div class="grid">
-            {% comment %} {% paginate memories %} {% endcomment %}
-            {% for book in latest_book_list %}
-            <div class="book_item shadow-sm p-0 rounded">
-                <a href="books/{{ book.id }}"><img src="{{ book.thumbnail.url }}" alt="{{ book.name }}" class="img-thumbnail" width="224" height="348"></a>
+{% if books %}
+    <div class="grid infinite-container">
+        {% comment %} {% paginate memories %} {% endcomment %}
+        {% for book in books %}
+            <div class="book_item shadow-sm infinite-item">
+                <a href="books/{{ book.id }}"><img src="{{ book.thumbnail.url }}" alt="{{ book.name }}" width="224" height="348"></a>
             </div>
         {% endfor %}
     </div>
+
+    {% if books.has_next %}
+        <a class="infinite-more-link" href="?page={{ books.next_page_number }}">more</a>
+    {% endif %}
+
+    <div class="loading" style="display: none;">
+        Loading...
+    </div>
+
 {% else %}
     <p>No Books are available.</p>
 {% endif %}
-</div>
 {% endblock 'content' %}

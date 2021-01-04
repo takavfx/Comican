@@ -1,4 +1,4 @@
-.content {
+/* .content {
     display: grid;
     grid-template-columns: 70px 1fr 100%;
     grid-template-rows: 1fr;
@@ -7,23 +7,22 @@
 
 .main-content {
     margin-left: 70px;
-}
+} */
 
-.grid {
+/* .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(234px, 234px));
     gap: 10px;
-}
-
+} */
 
 /* Index */
 .book_item {
     text-align: center;
 }
 
-/* .book_item img {
-    border-radius: 5px;
-} */
+.book_item img {
+    border-radius: 20px;
+}
 
 
 /* Book */

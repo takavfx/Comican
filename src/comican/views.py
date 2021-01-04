@@ -13,7 +13,11 @@ from django.views.generic import (
 from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.template import RequestContext
-from django.core.paginator import Paginator
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger
+)
 from django.contrib import messages
 from django.contrib.auth import (
     login,
@@ -88,7 +92,7 @@ class Create_account(CreateView):
 
     def get(self, request, *args, **kwargs):
         form = UserCreationForm(request.POST)
-        return render(reuqest, 'create_account.html', {'form': form,})
+        return render(request, 'create_account.html', {'form': form,})
 
 
 
@@ -128,18 +132,24 @@ def index(request):
 
     ## Get items and render
     latest_book_list = Book.objects.order_by('-created_at')
-    # paginator = Paginator(latest_book_list, 27)
-    # p = request.GET.get('p')
-    # books = paginator.get_page(p)
     query = request.GET.get('query')
-
     if query:
         latest_book_list = latest_book_list.filter(
             Q(name__icontains=query)
         )
 
+    ## Pagination
+    paginator = Paginator(latest_book_list, 27)
+    p = request.GET.get('page', 1)
+    try:
+        books = paginator.page(p)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
+
     context = {
-        'latest_book_list': latest_book_list,
+        'books': books,
         'add_book_form': add_book_form,
     }
 
